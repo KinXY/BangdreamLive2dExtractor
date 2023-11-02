@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+            <title>Live2D Motion naming helper</title>
+        </meta>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=0.5, minimum-scale=1.0, maximum-scale=4.0">
+        </meta>
+
+        <script src="../static/js/LAppDefine.js"></script>
+        <script src="../static/js/live2d.min.js"></script>
+        <script src="../static/js/jquery.min.js"></script>
+
+    </head>
+
+    <body onload="InitLive2D()">
+        <div>
+            <canvas id="mycanvas" width="300" height="500"></canvas>
+        </div>
+
+        <form id="motion_selection" action="#"">
+            <select id="motion_select" required>
+                {% for motion in motions %}
+                    <option value="{{ motion }}">{{ motion }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Play</button>
+        </form>
+
+        <form id="user_input" action="#">
+            <input type="text" id="description" required>
+            <button type="submit">Submit</button>
+        </form>
+
+        <script>
+            $("#motion_selection").on("submit", function (e) {
+                e.preventDefault();
+                var motionName = document.getElementById("motion_select").value;
+                var model = new LAppModel();
+                model.startAppointMotion(motionName, 3, 0);
+            });
+
+            $("#user_input").on("submit", function (e) {
+                e.preventDefault();
+                var motionName = document.getElementById("motion_select").value;
+                var description = document.getElementById("description").value;
+                // You can now use `userDesc` for whatever you need
+
+                // Post the data to the server
+                $.post("/description", {motion: motionName, description: description});
+            });
+        </script>
+    </body>
+</html>

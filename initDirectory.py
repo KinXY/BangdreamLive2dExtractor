@@ -9,3 +9,7 @@ def init_directory():
         os.mkdir("./output")
         # create a ./output/motions directory
         os.mkdir("./output/motions")
+    else:
+        # clear the ./output directory
+        os.system("rm -rf ./output/*")
+        os.mkdir("./output/motions")

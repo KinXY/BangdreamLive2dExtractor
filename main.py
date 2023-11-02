@@ -44,7 +44,8 @@ if __name__ == "__main__":
     model["motions"] = {}
     for motion in motion_list:
         motion_name = motion.split("/")[-1]
-        model["motions"][motion_name] = [{"file": f"motions/{motion_name}"}]
+        motion_name = motion_name.split(".")[0]
+        model["motions"][motion_name] = [{"file": f"motions/{motion_name}.mtn"}]
     # write model.json
     with open("./output/model.json", "w") as f:
         json.dump(model, f, indent=4)
